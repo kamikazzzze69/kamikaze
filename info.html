@@ -1,0 +1,2208 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Discover the story, collections and upcoming chapters of KAMIKAZE.">
+  <title>Information — KAMIKAZE</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <style>
+    :root {
+      --black: #090909;
+      --panel: #131313;
+      --red: #d92d35;
+      --white: #f4f0ed;
+      --muted: #999;
+      --line: #292929;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+  scroll-padding-top: 30px;
+  width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+main,
+section,
+.wrap {
+  min-width: 0;
+  max-width: 100%;
+}
+
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .wrap {
+      width: min(1120px, 88%);
+      margin-inline: auto;
+    }
+
+    /* NAVIGATION */
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid #252525;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .logo span,
+    .red {
+      color: var(--red);
+    }
+
+    .back-link {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: #bbb;
+      transition: color .25s;
+    }
+
+    .back-link:hover {
+      color: var(--red);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 610px;
+      padding: 85px 0 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 500px;
+      height: 500px;
+      right: -140px;
+      top: 50px;
+      background: radial-gradient(
+        circle,
+        #9c101b30,
+        #5b101410 45%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--red);
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(56px, 10vw, 118px);
+      line-height: .88;
+      letter-spacing: -.065em;
+      margin: 26px 0;
+      font-weight: 900;
+    }
+
+    .hero h1 em {
+      color: var(--red);
+      font-style: italic;
+    }
+
+    .hero-copy {
+      max-width: 490px;
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 15px 18px;
+      border: 1px solid #454545;
+      font-size: 10px;
+      letter-spacing: 1.4px;
+      transition: .25s ease;
+    }
+
+    .button:hover {
+      background: var(--red);
+      border-color: var(--red);
+      transform: translateY(-3px);
+    }
+
+    .hero-footnote {
+      margin-top: 60px;
+      color: #555;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    /* SHARED SECTIONS */
+
+    .section {
+      padding: 85px 0;
+      border-top: 1px solid #242424;
+    }
+
+    .section-heading {
+      font-size: clamp(36px, 6vw, 65px);
+      line-height: .98;
+      letter-spacing: -.045em;
+      margin: 18px 0;
+      font-weight: 900;
+    }
+
+    .section-copy {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* SEASON 1 FLAVORS */
+
+    .flavor-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .flavor-tag {
+      padding: 12px 15px;
+      border: 1px solid #303030;
+      color: #ccc;
+      font-size: 10px;
+      letter-spacing: 1px;
+      transition: .25s;
+    }
+
+    .flavor-tag:hover {
+      border-color: var(--red);
+      color: white;
+    }
+
+    /* CHAPTER CARDS */
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 38px;
+    }
+
+    .chapter-card {
+      min-height: 240px;
+      padding: 28px;
+      background: linear-gradient(145deg, #191919, #0d0d0d);
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: .3s ease;
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .chapter-number {
+      color: var(--red);
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .chapter-card h3 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: .98;
+      margin: 25px 0 10px;
+    }
+
+    .chapter-card p {
+      color: #999;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* COMING SOON FEATURE */
+
+    .coming-feature {
+      margin-top: 38px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      background: #101010;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .coming-image {
+      position: relative;
+      min-height: 360px;
+      background:
+        radial-gradient(ellipse at 50% 55%, #7c111b55, transparent 65%),
+        linear-gradient(135deg, #1c1c1c, #080808);
+      overflow: hidden;
+    }
+
+    .coming-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s ease;
+    }
+
+    .coming-feature:hover .coming-image img {
+      transform: scale(1.04);
+    }
+
+    .image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .placeholder-mark {
+      color: var(--red);
+      font-size: 50px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .placeholder-text {
+      color: #888;
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+
+    .coming-content {
+      padding: clamp(25px, 4vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .status {
+      display: inline-block;
+      color: var(--red);
+      border: 1px solid #702027;
+      padding: 8px 10px;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .coming-content h3 {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: .95;
+      letter-spacing: -.04em;
+      margin: 24px 0 14px;
+    }
+
+    .coming-content p {
+      color: #999;
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 360px;
+    }
+
+    .coming-meta {
+      margin-top: 22px;
+      color: #666;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    /* INFORMATION UPDATE CARDS */
+
+    .update-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .update-card {
+      background: #101010;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      transition: .3s ease;
+    }
+
+    .update-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .update-image {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, #76131b44, transparent 60%),
+        #161616;
+    }
+
+    .update-image img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    .update-card:hover .update-image img {
+      transform: scale(1.05);
+    }
+
+    .update-image .image-placeholder {
+      position: absolute;
+    }
+
+    .update-content {
+      padding: 23px;
+    }
+
+    .update-content h3 {
+      font-size: clamp(25px, 3vw, 36px);
+      line-height: .98;
+      margin: 17px 0 12px;
+    }
+
+    .update-content p {
+      color: #999;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .update-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #eee;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    /* BRAND NOTES — AUTO-SCROLLING STRIP */
+
+/* BRAND NOTES — TRUE INFINITE LOOP */
+
+
+.quote-window {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  margin-top: 35px;
+  contain: paint;
+}
+
+.quote-track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: moveQuotes 200s linear infinite;
+  will-change: transform;
+}
+
+.quote-set {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 15px;
+  padding-right: 15px;
+}
+
+.quote-card {
+  flex: 0 0 270px;
+  width: 270px;
+  min-width: 0;
+  min-height: 155px;
+  padding: 23px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-wrap: anywhere;
+}
+
+.quote-card p {
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.quote-window:hover .quote-track {
+  animation-play-state: paused;
+}
+
+@keyframes moveQuotes {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+
+    /* FOOTER */
+
+    .footer {
+      border-top: 1px solid #242424;
+      padding: 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    /* SCROLL REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: .12s; }
+    .delay-2 { transition-delay: .22s; }
+    .delay-3 { transition-delay: .32s; }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 500px;
+        padding: 65px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -.055em;
+      }
+
+      .section {
+        padding: 65px 0;
+      }
+
+      .chapter-grid,
+      .update-grid,
+      .coming-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .coming-image {
+        min-height: 270px;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    
+/* INTERACTIVE FLAVOR BUTTONS */
+.flavor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.flavor-item {
+  flex: 0 0 auto;
+}
+
+.flavor-tag {
+  appearance: none;
+  padding: 13px 16px;
+  background: transparent;
+  border: 1px solid #303030;
+  color: #ccc;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.flavor-tag:hover,
+.flavor-tag[aria-expanded="true"] {
+  color: #fff;
+  border-color: #d92d35;
+  background: #d92d3512;
+}
+
+.flavor-tag .flavor-arrow {
+  display: inline-block;
+  margin-left: 12px;
+  color: #d92d35;
+  transition: transform .25s ease;
+}
+
+.flavor-tag[aria-expanded="true"] .flavor-arrow {
+  transform: rotate(45deg);
+}
+
+.flavor-description {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .3s ease, opacity .3s ease;
+}
+
+.flavor-description-inner {
+  overflow: hidden;
+}
+
+.flavor-description.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.flavor-description-inner p {
+  max-width: 260px;
+  margin: 0;
+  padding: 0 12px;
+  color: #999;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.flavor-description.open .flavor-description-inner p {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flavor-description,
+  .flavor-tag,
+  .flavor-tag .flavor-arrow {
+    transition: none;
+  }
+}
+    /* FIX HORIZONTAL OVERFLOW MOBILE */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: hidden !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .wrap,
+  main,
+  section,
+  header,
+  footer,
+  nav {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================
+   FAQ
+========================= */
+
+.faq-section {
+  margin-top: 110px;
+  padding-top: 70px;
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+
+.faq-wrap {
+  max-width: 900px;
+}
+
+.faq-label {
+  margin: 0 0 25px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.faq-heading {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: .9;
+  letter-spacing: -.04em;
+}
+
+.faq-intro {
+  margin: 30px 0 55px;
+  max-width: 500px;
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.faq-list {
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 28px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.faq-question-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.faq-number {
+  font-size: 11px;
+  color: #777;
+  min-width: 25px;
+}
+
+.faq-icon {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  transition: transform .3s ease;
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s ease;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+  color: #aaa;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.faq-item.active .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-item.active .faq-answer-inner {
+  padding-bottom: 30px;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="wrap nav">
+    <a href="index.html" class="logo">KAMIKAZE<span>.</span></a>
+    <a href="index.html" class="back-link">← BACK TO HOME</a>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="wrap hero">
+      <p class="eyebrow reveal">THE STORY BEHIND THE TASTE</p>
+
+      <h1 class="reveal">
+        MORE THAN<br>
+        A <em>FLAVOR.</em>
+      </h1>
+
+      <p class="hero-copy reveal delay-1">
+        Setiap chapter punya karakter. Dari eksplorasi
+        fruity dan creamy di Season 1 hingga ekspresi
+        caramel yang lebih rich dan bold di Season 2.
+        Inilah perjalanan KAMIKAZE.
+      </p>
+
+      <div class="hero-actions reveal delay-2">
+        <a class="button" href="#story">
+          DISCOVER THE STORY <span>↘</span>
+        </a>
+        <a class="button" href="#coming-soon">
+          LATEST UPDATES <span>↗</span>
+        </a>
+      </div>
+
+      <p class="hero-footnote reveal delay-3">
+        THE ORIGINAL SIX — THE NEXT EXPRESSION
+      </p>
+    </section>
+
+    <!-- SEASON 1 -->
+    <section class="section" id="story">
+      <div class="wrap">
+        <p class="section-label reveal">01 / THE DISCOVER</p>
+
+        <h2 class="section-heading reveal">
+          SIX FLAVORS.<br>
+          <span class="red">ONE IDENTITY.</span>
+        </h2>
+
+        <p class="section-copy reveal">
+          Season 1 menjadi awal perjalanan KAMIKAZE lewat enam karakter rasa yang berbeda. Perpaduan fruity, creamy, dan sweet menjadi fondasi dari identitas pertama KAMIKAZE — enam varian, enam karakter, satu cerita.
+
+Setiap varian menghadirkan ciri khasnya sendiri, mengeksplorasi perpaduan rasa yang manis, creamy, dan penuh karakter. Sebuah awal yang membentuk identitas KAMIKAZE dan membuka jalan bagi cerita-cerita berikutnya.
+        </p>
+        
+ <h2 class="section-heading reveal">
+          BOLD BY<br>
+          <span class="red">NATURE.</span>
+        </h2>
+
+        <p class="section-copy reveal">
+         Karakter baru dengan intensitas yang lebih terasa.
+
+Season 2 mengeksplorasi sisi manis caramel yang lebih bold, menghadirkan pengalaman rasa yang berbeda dari koleksi sebelumnya. Dengan karakter yang lebih rich, deep, dan distinctive, setiap tarikan membawa sensasi yang lebih kuat tanpa kehilangan keseimbangan rasanya.
+
+Sebuah ekspresi baru dari KAMIKAZE — lebih berani, lebih intens, dan meninggalkan kesan yang berbeda.
+        </p>
+        
+</div>
+
+
+        <div class="chapter-grid">
+          <article class="chapter-card reveal">
+            <span class="chapter-number">CHAPTER I — SEASON 1</span>
+            <div>
+              <h3>THE ORIGINAL<br>SIX.</h3>
+              <p>Fruity · Creamy · Sweet</p>
+              <div class="flavor-list reveal">
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-vanilla">
+      VANILLA LATTE <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-vanilla">
+      <div class="flavor-description-inner">
+        <p>Perpaduan vanilla yang lembut dengan sentuhan coffee yang khas. Creamy, manis, dan smooth dalam satu karakter rasa yang hangat dan seimbang.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-berry">
+      CREAMY BERRY <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-berry">
+      <div class="flavor-description-inner">
+        <p>Perpaduan karakter berry yang fruity dengan sentuhan creamy yang lembut. Rasa manis dan nuansa buah yang khas berpadu menciptakan karakter yang bold, rich, dan penuh warna.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-tropical">
+      TROPICAL CHILL <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-tropical">
+      <div class="flavor-description-inner">
+        <p>Nuansa buah tropis yang segar berpadu dengan sensasi rasa yang cool dan refreshing. Perpaduan karakter fruity dan kesegaran yang ringan, menghadirkan vibe tropis yang fresh di setiap tarikan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-midnight">
+      MIDNIGHT BREW <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-midnight">
+      <div class="flavor-description-inner">
+        <p>Karakter rasa yang deep dan rich dengan sentuhan dark yang khas. Perpaduan nuansa yang bold dan distinctive menghadirkan identitas rasa yang berkarakter, kuat, dan meninggalkan kesan tersendiri.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-banana">
+      BANANA CHEESE <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-banana">
+      <div class="flavor-description-inner">
+        <p>Manisnya pisang berpadu dengan sentuhan creamy yang lembut dan karakter cheese yang rich. Perpaduan rasa ala dessert yang indulgent, menciptakan sensasi manis dan creamy dengan karakter yang khas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-matcha">
+      MATCHA CLOUD <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-matcha">
+      <div class="flavor-description-inner">
+        <p>Karakter earthy khas matcha berpadu dengan sentuhan creamy yang lembut dan smooth. Perpaduan yang subtle dan menenangkan, menghadirkan karakter rasa yang soft dengan kesan elegan di setiap tarikan.</p>
+      </div>
+    </div>
+  </div>
+
+            </div>
+          </article>
+
+          <article class="chapter-card reveal">
+            <span class="chapter-number">CHAPTER II — SEASON 2</span>
+            <div>
+              <h3>THE NEXT<br>EXPRESSION.</h3>
+              <p>Caramel · Rich · Bold · Deep · Distinct</p>
+                <div class="flavor-item">
+    <button class="flavor-tag" type="button"
+      aria-expanded="false" aria-controls="flavor-caramel">
+      CARAMEL <span class="flavor-arrow">+</span>
+    </button>
+    <div class="flavor-description" id="flavor-caramel">
+      <div class="flavor-description-inner">
+        <p>Karakter caramel yang rich dengan intensitas rasa yang lebih bold dan deep. Hadir dengan sensasi yang kuat dan berkarakter, namun tetap smooth dan seimbang — meninggalkan kesan yang distinctive tanpa terasa berlebihan.</p>
+      </div>
+    </div>
+  </div>
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+   <!-- SEASON 2 -->
+<section class="section">
+  <div class="wrap">
+    <p class="section-label reveal">02 / THE PHILOSOPHY</p>
+
+    <h2 class="section-heading reveal">
+      MADE WITH.<br>
+      <span class="red">INTENTION.</span>
+    </h2>
+
+    <p class="section-copy reveal">
+      Driven by conviction. Defined by character.
+
+      Setiap detail punya tujuan, every choice makes a statement. KAMIKAZE was never made to blend in — karena punya karakter sendiri berarti berani tampil beda.
+    </p>
+
+
+    <!-- COMING SOON FEATURE -->
+    <section class="section" id="coming-soon">
+      <div class="wrap">
+        <p class="section-label reveal">03 / WHAT'S NEXT</p>
+
+        <h2 class="section-heading reveal">
+          SOMETHING<br>
+          <span class="red">IS COMING.</span>
+        </h2>
+
+        <p class="section-copy reveal">
+          Update info dan pengumuman terbaru dari kami disini.
+        </p>
+
+        <article class="coming-feature reveal">
+          <div class="coming-image">
+            <!-- Gambar akan tampil jika file ini tersedia.
+                 Kalau belum ada, tampilkan placeholder di bawah. -->
+            <img
+              src="images/coming-soon.jpg"
+              alt="KAMIKAZE upcoming announcement"
+              onerror="this.style.display='none'"
+            >
+
+            <div class="image-placeholder">
+              <span class="placeholder-mark"></span>
+              <span class="placeholder-text">THE NEXT CHAPTER</span>
+            </div>
+          </div>
+
+          <div class="coming-content">
+            <span class="status">COMING SOON</span>
+
+            <h3>NEW KIND OF<br>SWEETNESS.</h3>
+
+            <p>          Sweetness takes a new form. Terinspirasi dari manisnya jagung, sebuah karakter baru segera menjadi bagian dari KAMIKAZE.</p>
+            <span class="coming-meta">
+             📌 STATUS — ANNOUNCEMENT PENDING
+             <p>Stay close. 🤙</p>
+            </span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+<!-- 04 / FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-wrap">
+
+    <p class="faq-label reveal">04 / FAQ</p>
+
+    <h2 class="faq-heading reveal">
+      FREQUENTLY<br>
+      <span class="red">ASKED.</span>
+    </h2>
+
+    <p class="faq-intro reveal delay-1">
+      Penasaran soal KAMIKAZE? Start here.
+      Beberapa hal yang paling sering ditanyakan,
+      answered without the noise.
+    </p>
+
+    <div class="faq-list reveal delay-2">
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">01</span>
+            <span>WHAT IS KAMIKAZE?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              KAMIKAZE adalah perjalanan rasa yang dibangun lewat karakter.
+              Dari enam flavor di Season 1 sampai ekspresi caramel di Season 2,
+              setiap chapter punya identitasnya sendiri.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">02</span>
+            <span>WHAT'S THE ORIGINAL SIX?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              The Original Six adalah enam flavor dari Season 1:
+              Vanilla Latte, Creamy Berry, Tropical Chill, Midnight Brew,
+              Banana Cheese, dan Matcha Cloud.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">03</span>
+            <span>WHAT MAKES SEASON 2 DIFFERENT?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              Season 2 membawa karakter caramel yang lebih rich, deep,
+              dan bold. Sebuah ekspresi baru yang terasa lebih intense,
+              tapi tetap punya balance.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">04</span>
+            <span>WHICH FLAVOR SHOULD I TRY FIRST?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              Tergantung mood dan karakter yang kamu cari.
+              Fruity dan fresh? Tropical Chill atau Creamy Berry.
+              Suka creamy dan dessert-like? Vanilla Latte atau Banana Cheese.
+              Kalau mau yang lebih deep, ada Midnight Brew dan Matcha Cloud.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">05</span>
+            <span>WHAT'S COMING NEXT?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              The next chapter is already taking shape.
+              Terinspirasi dari manisnya jagung, something new is coming.
+              Stay tuned.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-question-left">
+            <span class="faq-number">06</span>
+            <span>WHERE DOES THE STORY GO FROM HERE?</span>
+          </span>
+          <span class="faq-icon">+</span>
+        </button>
+
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="faq-answer-content">
+              The story continues.
+              Ini baru satu chapter dari perjalanan KAMIKAZE.
+              Masih banyak yang belum kita reveal.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    
+
+    <!-- MOVING BRAND NOTES -->
+    <section class="section">
+      <div class="wrap">
+        <p class="section-label reveal">04 / KAMIKAZE UNFILTERED</p>
+
+        <h2 class="section-heading reveal">
+          THE STORY<br>
+          <span class="red">CONTINUES.</span>
+        </h2>
+
+        <p class="section-copy reveal">
+          Setiap suara punya cerita, setiap pengalaman meninggalkan kesan. And this is where the KAMIKAZE journey continues.
+        </p>
+      </div>
+
+      
+<div class="quote-window" aria-label="KAMIKAZE community comments">
+  <div class="quote-track">
+
+    <!-- SET PERTAMA: 10 KOMENTAR -->
+    <div class="quote-set">
+
+      <article class="quote-card">
+        <small>@arvndra</small>
+        <p>“Midnight langka bet langka 😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@jovank</small>
+        <p>“Infokan tanggal mainnya, Masbil n the gang🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dvniel</small>
+        <p>“ciputat restok vanilla latte dong”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ravenza</small>
+        <p>“Ini yang baru kapan dropnya???”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noxx99</small>
+        <p>“Midnight berasa lagi di puncak 🥶”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@vyncentt</small>
+        <p>“Bandung sold out 🥲”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@adiityaahmad</small>
+        <p>“Season 2 caramel 🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@raraa</small>
+        <p>“Udah nyoba semuaaaa dan enak semuaaaa 😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ianfauzan</small>
+        <p>“KAMIKAZE😍😍😍”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noer.aldi</small>
+        <p>“daerah tasik blm ada min?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@kevinnnnnnn</small>
+        <p>“mau cekot keburu abis ygy”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nnaell</small>
+        <p>“Drop berikutnya kasih kode dikit dong min, biar bisa siap-siap.”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dimasakbar</small>
+        <p>“luvvvvvvvvvvv buat matcha”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dionwr</small>
+        <p>“ku kasih⭐⭐⭐⭐⭐”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@aliframadhan</small>
+        <p>“fak lah keabisan mulu”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@nadyaputri</small>
+        <p>“the branding tho... clean banget anjir”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@rakaaditya</small>
+        <p>“makin kesini makin gacor aja nih kamikaze”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@shafiraa</small>
+        <p>“banana cheese enjoyer here 🍌”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ubaydillah</small>
+        <p>“Cilegon hadir min 🫡”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@bagas.r</small>
+        <p>“KAMIKAZE COOKING SOMETHING 👨‍🍳🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@nopall</small>
+        <p>“drop datenya kpn yh”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@vito0</small>
+        <p>“min kasih kode dikit napa dah 👁️👁️”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@afterhours.id</small>
+        <p>“caramel?? okay now you got my attention”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@initialE</small>
+        <p>“MATCHA GANG MANA NIH 🍵”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@revan</small>
+        <p>“kamikaze kayak judul lagu rasa yg tertinggal tapi ini di lidah”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@yourbims</small>
+        <p>“ANJAY ADA YANG BARU LAGI???”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@zayden</small>
+        <p>“FREE YORK PRIDE🔥🔥🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@satriaa</small>
+        <p>“tropical chill santuy”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@reynaldyyy</small>
+        <p>“MIDNIGHT BREW JANGAN SAMPE ILANG DARI PEREDARAN PLSSS”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@her_iam</small>
+        <p>“botol s2 keren bangat gila, badass”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>meisyaa</small>
+        <p>“ak galau mint”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ajoy</small>
+        <p>“tutup dapur mbg, biarkan kamikaze yg memasak🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@skylarrr</small>
+        <p>“yang dari awal ngikutin sini mana suaranyaaa”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hawkeye</small>
+        <p>“min kalo chat dibales 'wkwk' itu pertanda apa, pertanda aku badut ya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@rvnaaaa</small>
+        <p>“berry berry berry”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ahmd_alsss</small>
+        <p>“janlup solat guys👍”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@flyyy</small>
+        <p>“aaaaaaaaa karamel seenak itu anjrittt”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noname</small>
+        <p>“pria tanpa uang hanya akan dicintai oleh ibunya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ptraa</small>
+        <p>“spill tgl rilisnya dong”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@yunyun</small>
+        <p>“bagi semua bole ta? 👉👈”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@myG</small>
+        <p>“stikernya keren2 king🤙🏻😜🫳🏻”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@styawan</small>
+        <p>“kamikaze on top”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@rzkytageg</small>
+        <p>“cikarang susah min dapetinnya😩”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@sryngr</small>
+        <p>“jangan nanggung min stok yg bnyk”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@ilhmrmdn</small>
+        <p>“tropical chill nih bos 😎”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@mengg</small>
+        <p>“creamy berry tuh vibesnya dessert banget sumpil”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dfa.kharis</small>
+        <p>“pertama kali beli yg banana cheese, karena unik dan penasaran rasanya, sampe sekarang keterusan😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@wageyasapril</small>
+        <p>“Gais dari semua varian paling creamy yang mana, buat pertama kali nyoba?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@kmill</small>
+        <p>“kualitas gabisa boong ya min👋”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@refiidaus</small>
+        <p>“masih gua pantau”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nurtrama</small>
+        <p>“tim rasa creamy kumpul💖💗🥰💞”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@abidhsn</small>
+        <p>“Pada akhirnya keegoisanmu akan disadarkan oleh kehilangan, bandung 10 Juli 2026”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@manns</small>
+        <p>“deymmmmm komen2 pada curhat bjir”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@flandylan</small>
+        <p>“midnight manja lee”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@bsrsngaji</small>
+        <p>“season 1 punya enam flavor, season 2 masuk bawa aura beda sih”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+     <article class="quote-card">
+        <small>@alwanlthfi</small>
+        <p>“sweet corn ini masuk ke s1 berarti ya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@mhmmd_iskndr</small>
+        <p>“bogor min belum kebagi rata semuanya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@azizoeldzik</small>
+        <p>“absen2 dri lampung”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+    <article class="quote-card">
+        <small>@afiif</small>
+        <p>“MAU SUNGKEM BUAT MIMIN YG UDAH BIKIN CARAMEL S2 INI🙏”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nadine</small>
+        <p>“jangan lupa istirahat y min, air putihnya juga”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@roviansyah</small>
+        <p>“Ditunggu tanggal launchingnya🤟”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+      
+     <article class="quote-card">
+        <small>@virnanalif</small>
+        <p>“adain onlen napa min, kehabisan mulu 😭😭😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@gandii</small>
+        <p>“Gebrakan baru dari kamikaze lagi bung”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hilmi</small>
+        <p>“ngga heboh, simpel tapi nagih”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@m_tijani</small>
+        <p>“ada harga ada kualitas itu bener”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hitzeet</small>
+        <p>“"Palembang jugo nak melok min, jangan diselisipke bae”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@dderafly</small>
+        <p>“jujur...penasaran ama vanilla”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@wrdhana</small>
+        <p>“Jare koncoku sing kerjo neng Cikarang liquid iki pancen jos, pas tak cobo jebul beneran enak. Mas, mbok yo daerah Semarang dipasoki sisan”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+     <article class="quote-card">
+        <small>@lukmanaji</small>
+        <p>“ini dia yg ditunggu2”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@aabsorii</small>
+        <p>“CARAMEL+VANILLA🤤”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@fhrii</small>
+        <p>“sweet corn nihyee”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@ihsnbnsd</small>
+        <p>“Kamikaze gapernah gagal”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@memettt</small>
+        <p>“sold out terus”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@shofaa</small>
+        <p>“Min gue kangen banget sama dia😔”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@malikismail</small>
+        <p>“tacan aya kitu di subang min?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dtsya</small>
+        <p>“Sukakk ama stikernya keren2”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+
+
+
+      
+    </div>
+
+    <!-- SET KEDUA: DUPLIKAT IDENTIK UNTUK LOOP MULUS -->
+    <div class="quote-set" aria-hidden="true">
+
+        <article class="quote-card">
+        <small>@arvndra</small>
+        <p>“Midnight langka bet langka 😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@jovank</small>
+        <p>“Infokan tanggal mainnya, Masbil n the gang🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dvniel</small>
+        <p>“ciputat restok vanilla latte dong”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ravenza</small>
+        <p>“Ini yang baru kapan dropnya???”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noxx99</small>
+        <p>“Midnight berasa lagi di puncak 🥶”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@vyncentt</small>
+        <p>“Bandung sold out 🥲”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@adiityaahmad</small>
+        <p>“Season 2 caramel 🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@raraa</small>
+        <p>“Udah nyoba semuaaaa dan enak semuaaaa 😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ianfauzan</small>
+        <p>“KAMIKAZE😍😍😍”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noer.aldi</small>
+        <p>“daerah tasik blm ada min?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@kevinnnnnnn</small>
+        <p>“mau cekot keburu abis ygy”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nnaell</small>
+        <p>“Drop berikutnya kasih kode dikit dong min, biar bisa siap-siap.”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dimasakbar</small>
+        <p>“luvvvvvvvvvvv buat matcha”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dionwr</small>
+        <p>“ku kasih⭐⭐⭐⭐⭐”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@aliframadhan</small>
+        <p>“fak lah keabisan mulu”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@nadyaputri</small>
+        <p>“the branding tho... clean banget anjir”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@rakaaditya</small>
+        <p>“makin kesini makin gacor aja nih kamikaze”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@shafiraa</small>
+        <p>“banana cheese enjoyer here 🍌”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ubaydillah</small>
+        <p>“Cilegon hadir min 🫡”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@bagas.r</small>
+        <p>“KAMIKAZE COOKING SOMETHING 👨‍🍳🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@nopall</small>
+        <p>“drop datenya kpn yh”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@vito0</small>
+        <p>“min kasih kode dikit napa dah 👁️👁️”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@afterhours.id</small>
+        <p>“caramel?? okay now you got my attention”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@initialE</small>
+        <p>“MATCHA GANG MANA NIH 🍵”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@revan</small>
+        <p>“kamikaze kayak judul lagu rasa yg tertinggal tapi ini di lidah”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@yourbims</small>
+        <p>“ANJAY ADA YANG BARU LAGI???”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@zayden</small>
+        <p>“FREE YORK PRIDE🔥🔥🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@satriaa</small>
+        <p>“tropical chill santuy”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@reynaldyyy</small>
+        <p>“MIDNIGHT BREW JANGAN SAMPE ILANG DARI PEREDARAN PLSSS”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@her_iam</small>
+        <p>“botol s2 keren bangat gila, badass”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>meisyaa</small>
+        <p>“ak galau mint”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ajoy</small>
+        <p>“tutup dapur mbg, biarkan kamikaze yg memasak🔥”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@skylarrr</small>
+        <p>“yang dari awal ngikutin sini mana suaranyaaa”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hawkeye</small>
+        <p>“min kalo chat dibales 'wkwk' itu pertanda apa, pertanda aku badut ya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@rvnaaaa</small>
+        <p>“berry berry berry”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ahmd_alsss</small>
+        <p>“janlup solat guys👍”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@flyyy</small>
+        <p>“aaaaaaaaa karamel seenak itu anjrittt”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@noname</small>
+        <p>“pria tanpa uang hanya akan dicintai oleh ibunya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@ptraa</small>
+        <p>“spill tgl rilisnya dong”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@yunyun</small>
+        <p>“bagi semua bole ta? 👉👈”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@myG</small>
+        <p>“stikernya keren2 king🤙🏻😜🫳🏻”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@styawan</small>
+        <p>“kamikaze on top”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@rzkytageg</small>
+        <p>“cikarang susah min dapetinnya😩”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@sryngr</small>
+        <p>“jangan nanggung min stok yg bnyk”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@ilhmrmdn</small>
+        <p>“tropical chill nih bos 😎”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@mengg</small>
+        <p>“creamy berry tuh vibesnya dessert banget sumpil”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dfa.kharis</small>
+        <p>“pertama kali beli yg banana cheese, karena unik dan penasaran rasanya, sampe sekarang keterusan😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@wageyasapril</small>
+        <p>“Gais dari semua varian paling creamy yang mana, buat pertama kali nyoba?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@kmill</small>
+        <p>“kualitas gabisa boong ya min👋”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@refiidaus</small>
+        <p>“masih gua pantau”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nurtrama</small>
+        <p>“tim rasa creamy kumpul💖💗🥰💞”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@abidhsn</small>
+        <p>“Pada akhirnya keegoisanmu akan disadarkan oleh kehilangan, bandung 10 Juli 2026”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@manns</small>
+        <p>“deymmmmm komen2 pada curhat bjir”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@flandylan</small>
+        <p>“midnight manja lee”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@bsrsngaji</small>
+        <p>“season 1 punya enam flavor, season 2 masuk bawa aura beda sih”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+     <article class="quote-card">
+        <small>@alwanlthfi</small>
+        <p>“sweet corn ini masuk ke s1 berarti ya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@mhmmd_iskndr</small>
+        <p>“bogor min belum kebagi rata semuanya”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@azizoeldzik</small>
+        <p>“absen2 dri lampung”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+    <article class="quote-card">
+        <small>@afiif</small>
+        <p>“MAU SUNGKEM BUAT MIMIN YG UDAH BIKIN CARAMEL S2 INI🙏”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@nadine</small>
+        <p>“jangan lupa istirahat y min, air putihnya juga”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@roviansyah</small>
+        <p>“Ditunggu tanggal launchingnya🤟”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+      
+     <article class="quote-card">
+        <small>@virnanalif</small>
+        <p>“adain onlen napa min, kehabisan mulu 😭😭😭”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@gandii</small>
+        <p>“Gebrakan baru dari kamikaze lagi bung”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hilmi</small>
+        <p>“ngga heboh, simpel tapi nagih”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@m_tijani</small>
+        <p>“ada harga ada kualitas itu bener”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@hitzeet</small>
+        <p>“"Palembang jugo nak melok min, jangan diselisipke bae”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@dderafly</small>
+        <p>“jujur...penasaran ama vanilla”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@wrdhana</small>
+        <p>“Jare koncoku sing kerjo neng Cikarang liquid iki pancen jos, pas tak cobo jebul beneran enak. Mas, mbok yo daerah Semarang dipasoki sisan”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+     <article class="quote-card">
+        <small>@lukmanaji</small>
+        <p>“ini dia yg ditunggu2”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@aabsorii</small>
+        <p>“CARAMEL+VANILLA🤤”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@fhrii</small>
+        <p>“sweet corn nihyee”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+
+      <article class="quote-card">
+        <small>@ihsnbnsd</small>
+        <p>“Kamikaze gapernah gagal”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@memettt</small>
+        <p>“sold out terus”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+       <article class="quote-card">
+        <small>@shofaa</small>
+        <p>“Min gue kangen banget sama dia😔”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@malikismail</small>
+        <p>“tacan aya kitu di subang min?”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+      <article class="quote-card">
+        <small>@dtsya</small>
+        <p>“Sukakk ama stikernya keren2”</p>
+        <small>KAMIKAZE COMMUNITY</small>
+      </article>
+
+
+    </div>
+  </div>
+</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap">
+    <div class="footer">
+      <span>KAMIKAZE®</span>
+      <span>INDEPENDENT CHARACTER. DISTINCTIVE TASTE.</span>
+      <a href="info.html">BACK TO TOP ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal animation ketika section terlihat saat scroll
+    const revealItems = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("visible"));
+    }
+  </script>
+
+<script>
+  document.querySelectorAll(".flavor-tag").forEach((button) => {
+    button.addEventListener("click", () => {
+      const descriptionId = button.getAttribute("aria-controls");
+      const description = document.getElementById(descriptionId);
+      const isOpen = button.getAttribute("aria-expanded") === "true";
+
+      button.setAttribute("aria-expanded", String(!isOpen));
+      description.classList.toggle("open", !isOpen);
+    });
+  });
+</script>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach((button) => {
+    button.addEventListener('click', () => {
+      const item = button.closest('.faq-item');
+
+      document.querySelectorAll('.faq-item').forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+        }
+      });
+
+      item.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>

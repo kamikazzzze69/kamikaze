@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#090909">
+
+  <meta name="description" content="KAMIKAZE ARCADE — Play the game. Beat your record.">
+
+  <title>KAMIKAZE ARCADE — Play Beyond</title>
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+
+    :root{--black:#090909;--panel:#131313;--panel2:#191919;--red:#d92d35;--white:#f4f0ed;--muted:#999;--line:#303030;--silver:#b9b9b9;--pipe:#777;--glow:#ff4a50;}
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{margin:0;background:var(--black);color:var(--white);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+
+    a{color:inherit;text-decoration:none}
+
+    button{font:inherit}
+
+    .wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+
+    .topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+    .brand{font-family:"Barlow Condensed",sans-serif;font-size:30px;font-weight:900;letter-spacing:1px}
+
+    .brand span{color:var(--red)}
+
+    .back{font-size:11px;letter-spacing:1.5px;color:#bbb}
+
+    .back:hover{color:white}
+
+    .hero{padding:74px 0 42px}
+
+    .eyebrow{font-size:11px;letter-spacing:3px;color:var(--red);font-weight:700}
+
+    h1,h2,h3,p{margin-top:0}
+
+    h1{font-family:"Barlow Condensed",sans-serif;font-size:clamp(58px,11vw,120px);line-height:.83;letter-spacing:-2px;margin:20px 0}
+
+    h1 span{color:var(--red)}
+
+    .intro{max-width:540px;color:#aaa;line-height:1.8;font-size:14px}
+
+    .game-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+
+    .pill{border:1px solid #454545;padding:12px 16px;font-size:11px;letter-spacing:1px;font-weight:700;background:transparent;color:var(--white);cursor:pointer}
+
+    .pill:hover,.pill:focus-visible{border-color:var(--red);background:#211011}
+
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:22px 0 16px}
+
+    .section-head h2{font-family:"Barlow Condensed",sans-serif;font-size:clamp(36px,6vw,54px);margin:8px 0 0;line-height:.95}
+
+    .section-head p{color:var(--muted);font-size:12px;line-height:1.6;margin:0;max-width:290px}
+
+    .game{border:1px solid #303030;background:linear-gradient(145deg,#151515,#0d0d0d);padding:clamp(16px,3vw,28px);margin-bottom:26px;position:relative}
+    .fullscreen-btn{position:absolute;top:12px;right:12px;width:38px;height:38px;display:grid;place-items:center;border:1px solid #444;background:#101010;color:#ddd;font-size:20px;line-height:1;cursor:pointer;z-index:20;transition:all .2s ease}
+    .fullscreen-btn:hover{border-color:var(--red);color:white;background:#1a1a1a}
+    .fullscreen-btn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+    .game:fullscreen{width:100vw;height:100vh;box-sizing:border-box;margin:0;padding:clamp(18px,3vw,40px);overflow:auto;background:#090909}
+    .game:fullscreen .fullscreen-btn{position:fixed;top:18px;right:18px}
+    .game:fullscreen .game-layout{min-height:calc(100vh - 80px);align-items:center}
+    .game:fullscreen .screen{max-height:calc(100vh - 80px)}
+    .game:fullscreen canvas{max-height:calc(100vh - 80px);object-fit:contain}
+    .game:-webkit-full-screen{width:100vw;height:100vh;box-sizing:border-box;margin:0;padding:clamp(18px,3vw,40px);overflow:auto;background:#090909}
+    .game:-webkit-full-screen .fullscreen-btn{position:fixed;top:18px;right:18px}
+    .game:-webkit-full-screen .game-layout{min-height:calc(100vh - 80px);align-items:center}
+    .game:-webkit-full-screen .screen{max-height:calc(100vh - 80px)}
+    .game:-webkit-full-screen canvas{max-height:calc(100vh - 80px);object-fit:contain}
+
+    .game-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr);gap:24px;align-items:start}
+
+    .screen{background:#050505;border:1px solid #292929;position:relative;overflow:hidden;min-width:0}
+
+    canvas{display:block;width:100%;height:auto;touch-action:manipulation}
+
+    .screen-tag{position:absolute;left:12px;top:12px;font-size:9px;letter-spacing:2px;color:#aaa;z-index:1;pointer-events:none}
+
+    .side h3{font-family:"Barlow Condensed",sans-serif;font-size:35px;line-height:.95;margin:0 0 12px}
+
+    .side p{color:#aaa;font-size:12px;line-height:1.8}
+
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+
+    .stat{padding:12px;border:1px solid #303030;background:#101010}
+
+    .stat small{display:block;font-size:9px;color:#999;letter-spacing:1.5px;margin-bottom:6px}
+
+    .stat strong{font-family:"Barlow Condensed",sans-serif;font-size:28px}
+
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    .btn{border:1px solid var(--red);background:var(--red);color:white;padding:12px 15px;font-size:10px;letter-spacing:1.2px;font-weight:800;cursor:pointer}
+
+    .btn.secondary{background:transparent;border-color:#444;color:#ddd}
+
+    .btn:hover{filter:brightness(1.12)}
+
+    .hint{font-size:10px!important;color:#777!important;margin:13px 0 0}
+
+    .mobile-controls{display:none;grid-template-columns:repeat(3,48px);gap:6px;justify-content:center;margin-top:12px}
+
+    .mobile-controls button{height:42px;background:#181818;border:1px solid #393939;color:#eee;font-size:17px}
+
+    .mobile-controls .empty{visibility:hidden}
+
+    .dead-center .game-layout{grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr)}
+
+    .footer{border-top:1px solid var(--line);padding:25px 0 34px;margin-top:50px;display:flex;justify-content:space-between;gap:16px;color:#777;font-size:10px;letter-spacing:1px}
+
+    .footer strong{color:#ddd}
+
+    .note{color:#777;font-size:11px;line-height:1.7;padding:0 0 30px}
+
+    @media(max-width:720px){
+
+      .wrap{width:calc(100% - 24px)}.topbar{height:64px}.hero{padding:54px 0 30px}h1{letter-spacing:-1px}
+
+      .game-layout,.dead-center .game-layout{grid-template-columns:1fr;gap:18px}.side h3{font-size:31px}
+
+      .section-head{align-items:start;flex-direction:column}.section-head p{max-width:none}
+
+      .mobile-controls{display:grid}.footer{flex-direction:column}
+
+    }
+
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+    /* PIPE LINK */
+#board{display:grid;gap:5px;width:100%;max-width:540px;aspect-ratio:1;margin:auto;touch-action:manipulation}
+
+.tile{border:1px solid #282828;background:#101010;position:relative;min-width:0;min-height:0;padding:0;cursor:pointer;border-radius:3px}
+
+.tile:hover{border-color:#666;background:#191919}.tile svg{width:100%;height:100%;display:block}
+
+.tile .pipe{fill:none;stroke:var(--pipe);stroke-width:14;stroke-linecap:square;stroke-linejoin:round}
+
+.tile.connected .pipe{stroke:var(--glow);filter:drop-shadow(0 0 3px #d92d35)}
+
+.tile.source,.tile.destination{border-color:#d92d35;background:#211011}
+
+.tile .terminal{fill:#f4f0ed;stroke:#d92d35;stroke-width:3}
+
+.tile .center{fill:#333;stroke:#aaa;stroke-width:2}
+
+.side h3{font:800 36px/.95 "Barlow Condensed",sans-serif;margin:0 0 12px}.side p{color:#aaa;font-size:12px;line-height:1.8}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}.stat{padding:12px;border:1px solid #303030;background:#101010}.stat small{display:block;font-size:9px;color:#999;letter-spacing:1.5px;margin-bottom:6px}.stat strong{font:700 28px "Barlow Condensed",sans-serif}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--red);background:var(--red);color:white;padding:12px 15px;font-size:10px;letter-spacing:1px;font-weight:800;cursor:pointer}.btn.secondary{background:transparent;border-color:#444;color:#ddd}.btn:disabled{opacity:.45;cursor:not-allowed}
+
+.message{min-height:42px;padding:11px 12px;border-left:3px solid var(--red);background:#171010;color:#ddd;font-size:12px;line-height:1.6;margin:14px 0}
+
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#aaa;margin-top:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:5px}
+
+.hint{font-size:10px!important;color:#777!important;margin-top:14px}.footer{border-top:1px solid var(--line);padding:25px 0 34px;margin-top:30px;display:flex;justify-content:space-between;gap:16px;color:#777;font-size:10px;letter-spacing:1px}.footer strong{color:#ddd}
+
+ 
+ /* PAGE TRANSITION */
+body {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: arcadePageIn .55s ease forwards;
+}
+
+@keyframes arcadePageIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body.page-leaving {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  body.page-leaving {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+ </style>
+
+</head>
+
+<body>
+
+  <header class="wrap topbar">
+
+    <a class="brand" href="index.html">KAMIKAZE<span>.</span></a>
+
+    <a class="back" href="index.html">← BACK TO HOME</a>
+
+  </header>
+
+
+
+  <main class="wrap">
+
+    <section class="hero">
+
+      <div class="eyebrow">KAMIKAZE / INTERACTIVE EXPERIENCE</div>
+
+      <h1>THE<br><span>ARCADE.</span></h1>
+
+      <p class="intro">Not just a brand. Enter the game. Mainkan, kejar rekor terbaikmu, dan tantang refleksmu dalam dua game bergaya KAMIKAZE.</p>
+
+      <div class="game-nav">
+
+        <a class="pill" href="#snake">01 / KAMIKAZE SNAKE ↓</a>
+
+        <a class="pill" href="#dead-center">02 / DEAD CENTER ↓</a>
+
+        <a class="pill" href="#break-core">03 / BREAK THE CORE ↓</a>
+
+        <a class="pill" href="#pipe-link">04 / PIPE LINK ↓</a>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="snake">
+
+      <div class="section-head">
+
+        <div><div class="eyebrow">01 / CLASSIC ARCADE</div><h2>KAMIKAZE SNAKE</h2></div>
+
+        <p>Grow longer. Move faster. Don't hit your own trail.</p>
+
+      </div>
+
+      <div class="game">
+          <button class="fullscreen-btn" type="button" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+
+        <div class="game-layout">
+
+          <div>
+
+            <div class="screen"><div class="screen-tag">SURVIVAL MODE / 01</div><canvas id="snakeCanvas" width="480" height="480" aria-label="Area permainan Kamikaze Snake"></canvas></div>
+
+            <div class="mobile-controls" id="snakeControls" aria-label="Kontrol ular">
+
+              <span class="empty"></span><button data-dir="up" aria-label="Atas">↑</button><span class="empty"></span>
+
+              <button data-dir="left" aria-label="Kiri">←</button><button data-dir="down" aria-label="Bawah">↓</button><button data-dir="right" aria-label="Kanan">→</button>
+
+            </div>
+
+          </div>
+
+          <aside class="side">
+
+            <h3>CONTROL<br>THE SERPENT.</h3>
+
+            <p>Ambil energi merah untuk bertambah panjang. Hindari dinding dan tubuhmu sendiri. Makin tinggi skor, makin cepat permainannya.</p>
+
+            <div class="stats">
+
+              <div class="stat"><small>SCORE</small><strong id="snakeScore">00</strong></div>
+
+              <div class="stat"><small>BEST</small><strong id="snakeBest">00</strong></div>
+
+            </div>
+
+            <div class="actions"><button class="btn" id="snakeStart">START GAME ↗</button><button class="btn secondary" id="snakePause">PAUSE</button></div>
+
+            <p class="hint">PC: tombol panah / WASD · HP: gunakan tombol arah. Tekan spasi untuk pause.</p>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="dead-center" class="dead-center">
+
+      <div class="section-head">
+
+        <div><div class="eyebrow">02 / REFLEX & PRECISION</div><h2>DEAD CENTER</h2></div>
+
+        <p>One tap. One moment. Hit the mark.</p>
+
+      </div>
+
+      <div class="game">
+          <button class="fullscreen-btn" type="button" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+
+        <div class="game-layout">
+
+          <div class="screen"><div class="screen-tag">PRECISION MODE / 02</div><canvas id="centerCanvas" width="480" height="480" aria-label="Area permainan Dead Center"></canvas></div>
+
+          <aside class="side">
+
+            <h3>TRUST YOUR<br>REFLEX.</h3>
+
+            <p>Tekan mulai, lalu tap saat jarum kompas mengarah ke zona merah. Setiap hit tepat menambah skor dan combo. Meleset? Ronde selesai.</p>
+
+            <div class="stats">
+
+              <div class="stat"><small>SCORE</small><strong id="centerScore">00</strong></div>
+
+              <div class="stat"><small>BEST</small><strong id="centerBest">00</strong></div>
+
+            </div>
+
+            <div class="actions"><button class="btn" id="centerStart">START ROUND ↗</button><button class="btn secondary" id="centerTap">LOCK TARGET</button></div>
+
+            <p class="hint">Klik / tap area game atau tombol LOCK TARGET saat jarum berada di zona merah.</p>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="break-core">
+
+      <div class="section-head">
+
+        <div><div class="eyebrow">03 / BRICK BREAKER</div><h2>BREAK THE CORE</h2></div>
+
+        <p>Break the blocks. Keep the core alive.</p>
+
+      </div>
+
+      <div class="game">
+          <button class="fullscreen-btn" type="button" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+
+        <div class="game-layout">
+
+          <div class="screen"><div class="screen-tag">CORE BREAKER / 03</div><canvas id="breakCanvas" width="480" height="480" aria-label="Area permainan Break the Core"></canvas></div>
+
+          <aside class="side">
+
+            <h3>BREAK<br>THE CORE.</h3>
+
+            <p>Gerakkan paddle untuk memantulkan bola dan menghancurkan semua blok. Jangan sampai bola jatuh. Bersihkan arena untuk lanjut ke wave berikutnya.</p>
+
+            <div class="stats"><div class="stat"><small>SCORE</small><strong id="breakScore">00</strong></div><div class="stat"><small>BEST</small><strong id="breakBest">00</strong></div></div>
+
+            <div class="actions"><button class="btn" id="breakStart">START GAME ↗</button><button class="btn secondary" id="breakPause">PAUSE</button></div>
+
+            <p class="hint">PC: gerakkan mouse atau tombol panah. HP: geser jari di area game.</p>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="pipe-link">
+
+<div class="section-head"><div><div class="eyebrow">04 / LOGIC PUZZLE</div><h2>PIPE LINK</h2></div><p>Rotate the pipes. Connect the flow. Clear every level.</p></div>
+
+<div class="game">
+          <button class="fullscreen-btn" type="button" aria-label="Fullscreen" title="Fullscreen">⛶</button><div class="layout">
+
+<div>
+
+<div class="screen"><div id="board" aria-label="Papan puzzle Pipe Link"></div></div>
+
+<div class="legend"><span><i class="dot"></i>START</span><span><i class="dot" style="background:#f4f0ed"></i>END</span><span>Tap / klik pipa untuk memutar 90°</span></div>
+
+</div>
+
+<aside class="side"><h3>CONNECT<br>THE FLOW.</h3><p>Putar setiap potongan pipa sampai jalurnya tersambung dari START merah ke END putih. Pipa yang tidak dipakai tidak masalah; yang penting ada jalur utuh dari awal sampai akhir.</p>
+
+<div class="stats"><div class="stat"><small>LEVEL</small><strong id="level">01</strong></div><div class="stat"><small>MOVES</small><strong id="moves">00</strong></div></div>
+
+<div class="actions"><button class="btn" id="newGame">RESTART LEVEL ↻</button><button class="btn secondary" id="hintBtn">SHOW HINT</button></div>
+
+<div class="message" id="message" role="status">Putar pipa untuk menyambungkan START ke END.</div>
+
+<p class="hint">No limit. Setiap level yang berhasil diselesaikan akan membuka level berikutnya dengan papan lebih besar dan lebih sulit.</p></aside>
+
+</div></div>
+
+</section>
+
+
+
+    <p class="note">High score disimpan di browser perangkat ini. Skor tidak tersinkron ke perangkat lain karena game ini berjalan tanpa database.</p>
+
+  </main>
+
+
+
+  <footer class="wrap footer"><strong>KAMIKAZE ARCADE<span style="color:var(--red)">.</span></strong><span>PLAY BEYOND THE ORDINARY.</span><a href="arcade.html">BACK TO TOP ↑</a></footer>
+
+
+
+<script>
+
+(() => {
+
+  const $ = id => document.getElementById(id);
+
+  const getBest = key => { try { return Number(localStorage.getItem(key) || 0); } catch(e) { return 0; } };
+
+  const setBest = (key, value) => { try { localStorage.setItem(key, String(value)); } catch(e) {} };
+
+  const drawText = (ctx, text, x, y, size=15, color='#f4f0ed', align='center') => {
+
+    ctx.fillStyle=color; ctx.font=`700 ${size}px Inter, Arial`; ctx.textAlign=align; ctx.fillText(text,x,y);
+
+  };
+
+
+
+  // KAMIKAZE SNAKE
+
+  const sc = $('snakeCanvas'), sx = sc.getContext('2d'), N = 24, cell = sc.width/N;
+
+  let snake, food, dir, nextDir, sScore=0, sBest=getBest('kamikazeSnakeBest'), sRunning=false, sPaused=false, sOver=false, lastStep=0, stepMs=145, raf=0;
+
+  $('snakeBest').textContent=String(sBest).padStart(2,'0');
+
+  function resetSnake(){
+
+    snake=[{x:10,y:12},{x:9,y:12},{x:8,y:12}];dir={x:1,y:0};nextDir={x:1,y:0};sScore=0;stepMs=145;sOver=false;sPaused=false;
+
+    placeFood();$('snakeScore').textContent='00';drawSnake();
+
+  }
+
+  function placeFood(){
+
+    do{food={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)}}while(snake.some(p=>p.x===food.x&&p.y===food.y));
+
+  }
+
+  function drawSnake(){
+
+    sx.fillStyle='#050505';sx.fillRect(0,0,sc.width,sc.height);
+
+    sx.strokeStyle='#171717';sx.lineWidth=1;
+
+    for(let i=0;i<=N;i++){sx.beginPath();sx.moveTo(i*cell,0);sx.lineTo(i*cell,sc.height);sx.stroke();sx.beginPath();sx.moveTo(0,i*cell);sx.lineTo(sc.width,i*cell);sx.stroke();}
+
+    // food orb
+
+    sx.save();sx.shadowColor='#d92d35';sx.shadowBlur=18;sx.fillStyle='#d92d35';sx.beginPath();sx.arc((food.x+.5)*cell,(food.y+.5)*cell,cell*.31,0,Math.PI*2);sx.fill();sx.restore();
+
+    snake.forEach((p,i)=>{
+
+      const pad=2; sx.fillStyle=i===0?'#f4f0ed':`hsl(0, ${i===1?0:0}%, ${Math.max(28,68-i*2)}%)`;
+
+      sx.fillRect(p.x*cell+pad,p.y*cell+pad,cell-pad*2,cell-pad*2);
+
+      if(i===0){sx.fillStyle='#d92d35';sx.fillRect(p.x*cell+cell*.58,p.y*cell+cell*.25,cell*.16,cell*.16);sx.fillRect(p.x*cell+cell*.58,p.y*cell+cell*.59,cell*.16,cell*.16);}
+
+    });
+
+    if(!sRunning||sPaused||sOver){
+
+      sx.fillStyle='rgba(0,0,0,.70)';sx.fillRect(0,0,sc.width,sc.height);
+
+      drawText(sx,sOver?'RUN ENDED':sPaused?'PAUSED':'KAMIKAZE SNAKE',sc.width/2,sc.height/2-8,25);
+
+      drawText(sx,sOver?'Press START to try again':sPaused?'Press PAUSE to continue':'Press START to begin',sc.width/2,sc.height/2+24,12,'#d92d35');
+
+    }
+
+  }
+
+  function setDirection(d){
+
+    const map={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
+
+    const v=map[d];if(!v)return;if(v.x===-dir.x&&v.y===-dir.y)return;nextDir=v;
+
+  }
+
+  function snakeTick(now){
+
+    raf=requestAnimationFrame(snakeTick);if(!sRunning||sPaused||sOver)return;
+
+    if(now-lastStep<stepMs)return;lastStep=now;dir=nextDir;
+
+    const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+
+    if(head.x<0||head.x>=N||head.y<0||head.y>=N||snake.some((p,i)=>i<snake.length-1&&p.x===head.x&&p.y===head.y)){
+
+      sOver=true;sRunning=false;drawSnake();return;
+
+    }
+
+    snake.unshift(head);
+
+    if(head.x===food.x&&head.y===food.y){
+
+      sScore+=10;$('snakeScore').textContent=String(sScore).padStart(2,'0');stepMs=Math.max(65,145-Math.floor(sScore/10)*4);
+
+      if(sScore>sBest){sBest=sScore;setBest('kamikazeSnakeBest',sBest);$('snakeBest').textContent=String(sBest).padStart(2,'0');}
+
+      placeFood();
+
+    }else snake.pop();
+
+    drawSnake();
+
+  }
+
+  $('snakeStart').addEventListener('click',()=>{resetSnake();sRunning=true;sPaused=false;lastStep=0;drawSnake();});
+
+  $('snakePause').addEventListener('click',()=>{if(!sRunning&&!sPaused)return;sPaused=!sPaused;if(sPaused)sRunning=true;drawSnake();});
+
+  $('snakeControls').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>setDirection(b.dataset.dir)));
+
+  window.addEventListener('keydown',e=>{
+
+    const k=e.key.toLowerCase(), dirs={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};
+
+    if(dirs[k]&&document.activeElement.tagName!=='INPUT'){e.preventDefault();setDirection(dirs[k]);}
+
+    if(k===' '&&document.activeElement.tagName!=='BUTTON'){e.preventDefault();if(sRunning||sPaused){sPaused=!sPaused;drawSnake();}}
+
+  });
+
+  resetSnake();requestAnimationFrame(snakeTick);
+
+
+
+  // DEAD CENTER
+
+  const cc=$('centerCanvas'), cx=cc.getContext('2d');
+
+  let cScore=0,cBest=getBest('kamikazeDeadCenterBest'),cRunning=false,angle=0,angularSpeed=0.035,targetAngle=-Math.PI/2,targetWidth=0.42,centerR=cc.width*.32,cRaf=0,prev=0,flash=0;
+
+  $('centerBest').textContent=String(cBest).padStart(2,'0');
+
+  function angleDiff(a,b){return Math.atan2(Math.sin(a-b),Math.cos(a-b));}
+
+  function drawCenter(){
+
+    const w=cc.width,h=cc.height,cx0=w/2,cy0=h/2;cx.clearRect(0,0,w,h);cx.fillStyle='#050505';cx.fillRect(0,0,w,h);
+
+    // subtle radial lines
+
+    for(let i=0;i<48;i++){const a=i*Math.PI*2/48;cx.strokeStyle='#151515';cx.beginPath();cx.moveTo(cx0,cy0);cx.lineTo(cx0+Math.cos(a)*w*.46,cy0+Math.sin(a)*h*.46);cx.stroke();}
+
+    // compass rings
+
+    [centerR+22,centerR,centerR-18].forEach((r,i)=>{cx.beginPath();cx.arc(cx0,cy0,r,0,Math.PI*2);cx.strokeStyle=i===1?'#6d6d6d':'#303030';cx.lineWidth=i===1?3:1;cx.stroke();});
+
+    // target zone
+
+    cx.beginPath();cx.arc(cx0,cy0,centerR,targetAngle-targetWidth/2,targetAngle+targetWidth/2);cx.strokeStyle='#d92d35';cx.lineWidth=11;cx.lineCap='butt';cx.stroke();
+
+    // target ticks
+
+    [targetAngle-targetWidth/2,targetAngle+targetWidth/2].forEach(a=>{cx.beginPath();cx.moveTo(cx0+Math.cos(a)*(centerR-12),cy0+Math.sin(a)*(centerR-12));cx.lineTo(cx0+Math.cos(a)*(centerR+15),cy0+Math.sin(a)*(centerR+15));cx.strokeStyle='#f4f0ed';cx.lineWidth=2;cx.stroke();});
+
+    // needle
+
+    const tip={x:cx0+Math.cos(angle)*centerR,y:cy0+Math.sin(angle)*centerR};
+
+    cx.save();cx.translate(cx0,cy0);cx.rotate(angle);
+
+    cx.beginPath();cx.moveTo(centerR+9,0);cx.lineTo(-15,-8);cx.lineTo(-5,0);cx.lineTo(-15,8);cx.closePath();cx.fillStyle='#f4f0ed';cx.fill();
+
+    cx.beginPath();cx.arc(0,0,8,0,Math.PI*2);cx.fillStyle='#d92d35';cx.fill();cx.restore();
+
+    cx.beginPath();cx.arc(cx0,cy0,3,0,Math.PI*2);cx.fillStyle='#fff';cx.fill();
+
+    if(!cRunning){cx.fillStyle='rgba(0,0,0,.70)';cx.fillRect(0,0,w,h);drawText(cx,'DEAD CENTER',w/2,h/2-9,27);drawText(cx,'PRESS START ROUND',w/2,h/2+22,12,'#d92d35');}
+
+    else {drawText(cx,'TAP WHEN THE NEEDLE HITS RED',w/2,35,11,'#999');}
+
+  }
+
+  function centerLoop(now){
+
+    cRaf=requestAnimationFrame(centerLoop);if(!prev)prev=now;const dt=Math.min(40,now-prev);prev=now;
+
+    if(cRunning){angle+=angularSpeed*dt/16.67;if(angle>Math.PI*2)angle-=Math.PI*2;}
+
+    drawCenter();
+
+  }
+
+  function startCenter(){cScore=0;angle=-Math.PI/2;cRunning=true;angularSpeed=0.035;targetWidth=.42;$('centerScore').textContent='00';$('centerStart').textContent='RESTART ROUND ↗';}
+
+  function tapCenter(){
+
+    if(!cRunning)return;
+
+    const diff=Math.abs(angleDiff(angle,targetAngle));
+
+    if(diff<=targetWidth/2){
+
+      cScore+=1;$('centerScore').textContent=String(cScore).padStart(2,'0');
+
+      if(cScore>cBest){cBest=cScore;setBest('kamikazeDeadCenterBest',cBest);$('centerBest').textContent=String(cBest).padStart(2,'0');}
+
+      angularSpeed=Math.min(.105,angularSpeed+.004);targetWidth=Math.max(.12,targetWidth-.018);
+
+      targetAngle=(targetAngle+1.7+Math.random()*1.2)%(Math.PI*2);
+
+      flash=1;
+
+    }else{cRunning=false;$('centerStart').textContent='TRY AGAIN ↗';}
+
+    drawCenter();
+
+  }
+
+  $('centerStart').addEventListener('click',startCenter);
+
+  $('centerTap').addEventListener('click',tapCenter);
+
+  cc.addEventListener('pointerdown',tapCenter);
+
+  requestAnimationFrame(centerLoop);
+
+
+
+  // BREAK THE CORE — paddle and bricks
+
+  const bc=$('breakCanvas'), bx=bc.getContext('2d');
+
+  let bBest=getBest('kamikazeBreakCoreBest'), bScore=0, bRunning=false, bPaused=false, bOver=false, bPaddle={x:190,y:445,w:100,h:10}, bBall={x:240,y:420,vx:3,vy:-4,r:7}, bBricks=[], bLives=3, bFrame=0;
+
+  $('breakBest').textContent=String(bBest).padStart(2,'0');
+
+  function buildBricks(){bBricks=[];for(let r=0;r<5;r++)for(let c=0;c<8;c++)bBricks.push({x:22+c*55,y:65+r*25,w:47,h:16,alive:true,color:r%2?'#777':'#d92d35'});}
+
+  function resetBreak(){bScore=0;bLives=3;bOver=false;bPaused=false;bPaddle.x=190;bBall={x:240,y:420,vx:3,vy:-4,r:7};buildBricks();$('breakScore').textContent='00';drawBreak();}
+
+  function drawBreak(){bx.fillStyle='#050505';bx.fillRect(0,0,480,480);bx.strokeStyle='#171717';for(let x=0;x<480;x+=24){bx.beginPath();bx.moveTo(x,0);bx.lineTo(x,480);bx.stroke();}
+
+    bBricks.forEach(br=>{if(!br.alive)return;bx.fillStyle=br.color;bx.fillRect(br.x,br.y,br.w,br.h);bx.fillStyle='rgba(255,255,255,.18)';bx.fillRect(br.x+2,br.y+2,br.w-4,2);});
+
+    bx.fillStyle='#eee';bx.fillRect(bPaddle.x,bPaddle.y,bPaddle.w,bPaddle.h);bx.fillStyle='#d92d35';bx.fillRect(bPaddle.x+8,bPaddle.y+3,bPaddle.w-16,2);
+
+    bx.save();bx.shadowColor='#d92d35';bx.shadowBlur=14;bx.fillStyle='#d92d35';bx.beginPath();bx.arc(bBall.x,bBall.y,bBall.r,0,Math.PI*2);bx.fill();bx.restore();drawText(bx,'LIVES '+bLives,18,28,11,'#999','left');
+
+    if(!bRunning||bPaused||bOver){bx.fillStyle='rgba(0,0,0,.72)';bx.fillRect(0,0,480,480);drawText(bx,bOver?'CORE LOST':bPaused?'PAUSED':'BREAK THE CORE',240,225,25);drawText(bx,bOver?'Press START to try again':bPaused?'Press PAUSE to continue':'Press START to begin',240,255,12,'#d92d35');}}
+
+  function movePaddle(clientX){const rect=bc.getBoundingClientRect();bPaddle.x=Math.max(0,Math.min(480-bPaddle.w,(clientX-rect.left)/rect.width*480-bPaddle.w/2));}
+
+  bc.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||e.buttons)movePaddle(e.clientX);});bc.addEventListener('pointerdown',e=>{movePaddle(e.clientX);});
+
+  window.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')bPaddle.x=Math.max(0,bPaddle.x-24);if(e.key==='ArrowRight')bPaddle.x=Math.min(480-bPaddle.w,bPaddle.x+24);});
+
+  $('breakStart').addEventListener('click',()=>{resetBreak();bRunning=true;bPaused=false;});$('breakPause').addEventListener('click',()=>{if(bRunning||bPaused){bPaused=!bPaused;bRunning=true;drawBreak();}});
+
+  function breakLoop(){requestAnimationFrame(breakLoop);if(bRunning&&!bPaused&&!bOver){bBall.x+=bBall.vx;bBall.y+=bBall.vy;if(bBall.x<bBall.r||bBall.x>480-bBall.r)bBall.vx*=-1;if(bBall.y<bBall.r+35)bBall.vy=Math.abs(bBall.vy);
+
+      if(bBall.vy>0&&bBall.y+bBall.r>=bPaddle.y&&bBall.y-bBall.r<=bPaddle.y+bPaddle.h&&bBall.x>=bPaddle.x&&bBall.x<=bPaddle.x+bPaddle.w){bBall.vy=-Math.abs(bBall.vy);bBall.vx=((bBall.x-(bPaddle.x+bPaddle.w/2))/(bPaddle.w/2))*4.5;}
+
+      for(const br of bBricks){if(br.alive&&bBall.x>=br.x&&bBall.x<=br.x+br.w&&bBall.y>=br.y&&bBall.y<=br.y+br.h){br.alive=false;bBall.vy*=-1;bScore+=10;$('breakScore').textContent=String(bScore).padStart(2,'0');if(bScore>bBest){bBest=bScore;setBest('kamikazeBreakCoreBest',bBest);$('breakBest').textContent=String(bBest).padStart(2,'0');}break;}}
+
+      if(bBall.y>490){bLives--;if(bLives<=0){bOver=true;bRunning=false;}else bBall={x:240,y:420,vx:3*(Math.random()>.5?1:-1),vy:-4,r:7};}
+
+      if(bBricks.every(br=>!br.alive)){bScore+=100;$('breakScore').textContent=String(bScore).padStart(2,'0');buildBricks();bBall.vx*=1.08;bBall.vy*=1.08;}
+
+    }drawBreak();}
+
+  resetBreak();requestAnimationFrame(breakLoop);
+  // PIPE LINK — logic puzzle
+const boardEl = $('board');
+
+let level = 1, moves = 0, size = 4, tiles = [], solution = [], start = 0, end = 0, won = false;
+
+const dirs = ['N','E','S','W'];
+
+const bits = {N:1,E:2,S:4,W:8};
+
+const rotateMask = mask => ((mask << 1) & 15) | ((mask & 8) ? 1 : 0);
+
+const has = (mask,d) => !!(mask & bits[d]);
+
+const opposite = {N:'S',E:'W',S:'N',W:'E'};
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function pathForLevel(n){
+
+  const s = Math.min(4+n, 9);
+
+  const route = [{r:0,c:0}];
+
+  let r=0,c=0, prev='';
+
+  while(r!==s-1 || c!==s-1){
+
+    let opts=[];
+
+    if(c<s-1) opts.push('E');
+
+    if(r<s-1) opts.push('S');
+
+    opts=opts.filter(d=>d!==opposite[prev] || opts.length===1);
+
+    const d=opts[Math.floor(Math.random()*opts.length)];
+
+    if(d==='E')c++; else r++;
+
+    route.push({r,c});prev=d;
+
+  }
+
+  return {s,route};
+
+}
+
+function maskFor(a,b){
+
+  let m=0;
+
+  if(b.r<a.r)m|=bits.N;if(b.c>a.c)m|=bits.E;if(b.r>a.r)m|=bits.S;if(b.c<a.c)m|=bits.W;
+
+  return m;
+
+}
+
+function makeLevel(){
+
+  won=false;moves=0;size=Math.min(4+level-1,9);
+
+  const built=pathForLevel(level);size=built.s;
+
+  solution=Array(size*size).fill(0);start=0;end=size*size-1;
+
+  built.route.forEach((p,i)=>{
+
+    const idx=p.r*size+p.c;
+
+    if(i>0)solution[idx]|=bits[directionBetween(p,built.route[i-1])];
+
+    if(i<built.route.length-1)solution[idx]|=bits[directionBetween(p,built.route[i+1])];
+
+  });
+
+  // Fill non-route cells with a mix of dead-end, straight and elbow pipes.
+
+  const pool=[bits.N|bits.S,bits.E|bits.W,bits.N|bits.E,bits.E|bits.S,bits.S|bits.W,bits.W|bits.N,bits.N,bits.E,bits.S,bits.W];
+
+  for(let i=0;i<solution.length;i++) if(!solution[i]) solution[i]=pool[Math.floor(Math.random()*pool.length)];
+
+  tiles=solution.map((mask,i)=>{
+
+    let rotations=Math.floor(Math.random()*4), scrambled=mask;
+
+    for(let k=0;k<rotations;k++)scrambled=rotateMask(scrambled);
+
+    if(i===start)scrambled=bits[directionBetween(built.route[0],built.route[1])];
+
+    if(i===end)scrambled=bits[directionBetween(built.route[built.route.length-1],built.route[built.route.length-2])];
+
+    return {mask:scrambled,base:mask,locked:i===start||i===end};
+
+  });
+
+  // Rotate route pieces to make puzzle unsolved, keeping start/end connectors facing inward.
+
+  for(let i=1;i<tiles.length-1;i++){
+
+    if(solution[i] && Math.random()<.82){
+
+      let m=solution[i], turns=1+Math.floor(Math.random()*3);
+
+      while(turns--)m=rotateMask(m);
+
+      tiles[i].mask=m;
+
+    }
+
+  }
+
+  // Guarantee a solvable puzzle by storing the route's correct masks as the hint solution.
+
+  $('level').textContent=String(level).padStart(2,'0');
+
+  $('moves').textContent='00';$('message').textContent='Level '+level+': sambungkan START ke END.';
+
+  render();checkWin();
+
+}
+
+function directionBetween(a,b){if(b.r<a.r)return 'N';if(b.c>a.c)return 'E';if(b.r>a.r)return 'S';return 'W';}
+
+function render(){
+
+ boardEl.style.gridTemplateColumns=`repeat(${size}, minmax(0,1fr))`;boardEl.innerHTML='';
+
+ tiles.forEach((tile,i)=>{
+
+  const btn=document.createElement('button');btn.className='tile';btn.type='button';btn.setAttribute('aria-label',`Pipa ${i+1}, putar`);btn.title='Klik untuk memutar';
+
+  if(i===start)btn.classList.add('source');if(i===end)btn.classList.add('destination');
+
+  if(tile.connected)btn.classList.add('connected');
+
+  const paths=[];const m=tile.mask;
+
+  if(has(m,'N'))paths.push('M50 50 L50 5');if(has(m,'E'))paths.push('M50 50 L95 50');if(has(m,'S'))paths.push('M50 50 L50 95');if(has(m,'W'))paths.push('M50 50 L5 50');
+
+  btn.innerHTML=`<svg viewBox="0 0 100 100" aria-hidden="true">${paths.map(d=>`<path class="pipe" d="${d}"/>`).join('')}<circle class="center" cx="50" cy="50" r="8"/>${i===start?'<circle class="terminal" cx="50" cy="50" r="13"/>':''}${i===end?'<circle class="terminal" cx="50" cy="50" r="13"/>':''}</svg>`;
+
+  if(tile.locked){btn.querySelectorAll('.pipe').forEach(p=>p.style.stroke='#d92d35');}
+
+  btn.disabled=won;btn.addEventListener('click',()=>{if(won||tile.locked)return;tile.mask=rotateMask(tile.mask);moves++;$('moves').textContent=String(moves).padStart(2,'0');checkWin();render();});boardEl.appendChild(btn);
+
+ });
+
+}
+
+function connectedSet(){
+
+ const seen=new Set([start]), queue=[start];
+
+ while(queue.length){const i=queue.shift(),r=Math.floor(i/size),c=i%size,m=tiles[i].mask;
+
+  for(const d of dirs){if(!has(m,d))continue;let rr=r,cc=c;if(d==='N')rr--;if(d==='S')rr++;if(d==='E')cc++;if(d==='W')cc--;if(rr<0||rr>=size||cc<0||cc>=size)continue;
+
+   const j=rr*size+cc;if(has(tiles[j].mask,opposite[d])&&!seen.has(j)){seen.add(j);queue.push(j);}
+
+  }
+
+ }
+
+ return seen;
+
+}
+
+function checkWin(){
+
+ const seen=connectedSet();tiles.forEach((t,i)=>t.connected=seen.has(i));
+
+ if(seen.has(end)){
+
+  won=true;$('message').textContent=`LEVEL ${level} CLEAR! Jalur tersambung dalam ${moves} putaran. Level berikutnya siap.`;
+
+  $('newGame').textContent='NEXT LEVEL →';$('newGame').disabled=false;
+
+ }else{$('newGame').textContent='RESTART LEVEL ↻';}
+
+}
+
+$('newGame').addEventListener('click',()=>{
+
+ if(won){level++;makeLevel();}else makeLevel();
+
+});
+
+$('hintBtn').addEventListener('click',()=>{
+
+ if(won)return;
+
+ // Show the next correct orientation for each tile along the guaranteed route.
+
+ const route=pathForHint();
+
+ if(!route){$('message').textContent='Coba sambungkan pipa yang terbuka ke arah pipa tetangga.';return;}
+
+ const i=route.find(idx=>tiles[idx].mask!==solution[idx]);
+
+ if(i===undefined){$('message').textContent='Jalur sudah hampir benar. Periksa sambungan di dekat START dan END.';return;}
+
+ tiles[i].mask=solution[i];moves++;$('moves').textContent=String(moves).padStart(2,'0');checkWin();render();
+
+ $('message').textContent='Hint: satu pipa pada jalur utama sudah diarahkan dengan benar.';
+
+});
+
+function pathForHint(){
+
+ // Find the intended main route from the stored solution masks by walking from START.
+
+ const out=[start];let cur=start,prev=-1,guard=0;
+
+ while(cur!==end&&guard++<size*size){
+
+  const r=Math.floor(cur/size),c=cur%size,m=solution[cur];let next=-1;
+
+  for(const d of dirs){if(!has(m,d))continue;let rr=r,cc=c;if(d==='N')rr--;if(d==='S')rr++;if(d==='E')cc++;if(d==='W')cc--;if(rr<0||rr>=size||cc<0||cc>=size)continue;const j=rr*size+cc;if(j!==prev&&has(solution[j],opposite[d])){next=j;break;}}
+
+  if(next<0)break;prev=cur;cur=next;out.push(cur);
+
+ }
+
+ return out;
+
+}
+
+makeLevel();
+
+/* Fullscreen controls */
+document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const game = btn.closest('.game');
+    if (!game) return;
+
+    try {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) await document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        if (game.requestFullscreen) await game.requestFullscreen();
+        else if (game.webkitRequestFullscreen) game.webkitRequestFullscreen();
+      }
+    } catch (err) {
+      console.warn('Fullscreen tidak tersedia:', err);
+    }
+  });
+});
+
+function updateFullscreenIcons(){
+  const active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+    const game = btn.closest('.game');
+    const isActive = active && (
+      document.fullscreenElement === game ||
+      document.webkitFullscreenElement === game
+    );
+    btn.textContent = isActive ? '×' : '⛶';
+    btn.setAttribute('aria-label', isActive ? 'Keluar fullscreen' : 'Fullscreen');
+    btn.title = isActive ? 'Keluar fullscreen' : 'Fullscreen';
+  });
+}
+
+document.addEventListener('fullscreenchange', updateFullscreenIcons);
+document.addEventListener('webkitfullscreenchange', updateFullscreenIcons);
+
+})();
+
+document.querySelectorAll('a[href]').forEach(link => {
+  link.addEventListener('click', function(e) {
+
+    const href = this.getAttribute('href');
+
+    // Jangan ganggu anchor seperti #snake / #dead-center
+    if (!href || href.startsWith('#')) return;
+
+    // Jangan ganggu external link
+    if (this.target === '_blank') return;
+
+    e.preventDefault();
+
+    document.body.classList.add('page-leaving');
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 350);
+  });
+});
+</script>
+
+
+
+
+</body>
+
+</html>
